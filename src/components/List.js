@@ -70,14 +70,16 @@ export default function List() {
         <button className='btn_add' onClick={writeToDatabase}>
           <img src={AddIcon} />
         </button>
-        {todos.map((todo, index) => (
-          <div className='todo' key={index}>
-            <h2>{todo.todo}</h2>
-            <button className='btn_delete' onClick={() => handleDelete(todo.uidd)}>
-              <img src={DeleteIcon} alt='刪除' />
-            </button>
-          </div>
-        ))}
+        <div className='todo_container'>
+          {todos.map((todo, index) => (
+            <div className='todo' key={index}>
+              <div className='todo_txt'>{todo.todo}</div>
+              <button className='btn_delete' onClick={() => handleDelete(todo.uidd)}>
+                <img src={DeleteIcon} alt='刪除' />
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
       <button className='btn_logout' onClick={handleSignOut}>
         <img src={LogoutIcon} alt='登出' />

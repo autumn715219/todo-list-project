@@ -49,17 +49,17 @@
     margin: 80px auto 3em;
   }
   h1 {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.2em;
     text-align: center;
     border-bottom: 1px solid #000;
     line-height: 1.5;
   }
   input {
-    width: 90%;
-    height: 45px;
+    width: 88%;
+    height: 60px;
     margin: 10px 0 10px 0;
     padding: 0.5em;
-    font-size: 20px;
+    font-size: 24px;
     border-radius: 5px 0 0 5px;
     border: none;
     outline: none;
@@ -68,8 +68,8 @@
     }
   }
   .btn_add {
-    width: calc(10% - 2px);
-    height: 45px;
+    width: calc(12% - 2px);
+    height: 60px;
     margin: 10px 0 10px 2px;
     padding: 0;
     border: none;
@@ -80,22 +80,52 @@
     &:hover {
       background-color: #ce5175;
     }
-    button.btn_delete {
+  }
+  .todo {
+    display: grid;
+    margin: 5px auto;
+    width: 100%;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    line-height: 60px;
+    grid-template-columns: 50px auto 60px;
+    counter-increment: num;
+    &::before {
+      width: fit-content;
+      content: '0' counter(num) '. ';
+      padding-left: 10px;
+      color: #000;
+      font-size: 1.5em;
+    }
+    &:nth-of-type(n + 10)::before {
+      content: counter(num) '. ';
+    }
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+    .todo_txt {
+      padding: 0 10px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .btn_delete {
       display: block;
       width: 40px;
       height: 40px;
-      margin: 10px auto;
+      margin: 10px;
       font-size: 18px;
       border: none;
       color: #fff;
-      background-color: #000;
+      background-color: rgba(0, 0, 0, 0.2);
       border-radius: 5px;
       cursor: pointer;
-    }
-    a {
-      color: #000;
-      display: block;
-      text-align: center;
+      transition: 0.1s ease-in all;
+      &:hover {
+        background-color: #ce5175;
+      }
     }
   }
 }
