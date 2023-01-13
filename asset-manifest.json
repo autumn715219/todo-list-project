@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/todo-list-project/static/css/main.cd33a6af.css",
-    "main.js": "/todo-list-project/static/js/main.ead5b8ce.js",
-    "static/media/add.svg": "/todo-list-project/static/media/add.6f13ed441a5b9e61e9ad8740b212ffa0.svg",
-    "index.html": "/todo-list-project/index.html",
-    "static/media/delete.svg": "/todo-list-project/static/media/delete.7056bcba9271c062e2db6b5e546acbd7.svg",
-    "static/media/signout.svg": "/todo-list-project/static/media/signout.fc6025b971f60352f5a0f37ed7c2d301.svg",
-    "main.cd33a6af.css.map": "/todo-list-project/static/css/main.cd33a6af.css.map",
-    "main.ead5b8ce.js.map": "/todo-list-project/static/js/main.ead5b8ce.js.map"
+    "main.css": "./static/css/main.cd33a6af.css",
+    "main.js": "./static/js/main.47b6b330.js",
+    "static/media/add.svg": "./static/media/add.6f13ed441a5b9e61e9ad8740b212ffa0.svg",
+    "index.html": "./index.html",
+    "static/media/delete.svg": "./static/media/delete.7056bcba9271c062e2db6b5e546acbd7.svg",
+    "static/media/signout.svg": "./static/media/signout.fc6025b971f60352f5a0f37ed7c2d301.svg",
+    "main.cd33a6af.css.map": "./static/css/main.cd33a6af.css.map",
+    "main.47b6b330.js.map": "./static/js/main.47b6b330.js.map"
   },
   "entrypoints": [
     "static/css/main.cd33a6af.css",
-    "static/js/main.ead5b8ce.js"
+    "static/js/main.47b6b330.js"
   ]
 }
