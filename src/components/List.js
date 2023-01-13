@@ -81,7 +81,7 @@ export default function List() {
           ))}
         </div>
       </div>
-      <button className='btn_logout' onClick={handleSignOut}>
+      <button className='btn_logout btn' onClick={handleSignOut}>
         <img src={LogoutIcon} alt='登出' />
       </button>
     </div>
