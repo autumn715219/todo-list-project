@@ -66,6 +66,9 @@
     &:focus {
       outline: none;
     }
+    @include mb {
+      width: 80%;
+    }
   }
   .btn_add {
     width: calc(12% - 2px);
@@ -77,19 +80,30 @@
     background-color: #000;
     cursor: pointer;
     transition: 0.1s ease-in all;
+    @include mb {
+      width: calc(20% - 2px);
+    }
     &:hover {
       background-color: #ce5175;
+    }
+    img {
+      height: 60%;
+      width: auto;
     }
   }
   .todo {
     display: grid;
     margin: 5px auto;
+    padding: 0 10px;
     width: 100%;
     height: 60px;
     background: rgba(255, 255, 255, 0.2);
     line-height: 60px;
-    grid-template-columns: 50px auto 60px;
+    grid-template-columns: 50px auto 50px 50px;
     counter-increment: num;
+    &.strike {
+      text-decoration: line-through;
+    }
     &::before {
       width: fit-content;
       content: '0' counter(num) '. ';
@@ -111,7 +125,7 @@
       font-size: 20px;
       font-weight: 800;
     }
-    .btn_delete {
+    .btn {
       display: block;
       width: 40px;
       height: 40px;
@@ -125,6 +139,14 @@
       transition: 0.1s ease-in all;
       &:hover {
         background-color: #ce5175;
+      }
+      &.btn_complete {
+        img {
+          width: 60%;
+        }
+      }
+      &.btn_not_complete {
+        visibility: hidden;
       }
     }
   }

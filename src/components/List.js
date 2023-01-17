@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../utils/firebase.js';
 import { signOut } from 'firebase/auth';
-import { uid } from 'uid';
-import { set, ref, onValue, remove } from 'firebase/database';
+import { set, ref, get, child, remove, update } from 'firebase/database';
 
 import AddIcon from '../assect/add.svg';
 import DeleteIcon from '../assect/delete.svg';
+import CompleteIcon from '../assect/complete.svg';
 import LogoutIcon from '../assect/signout.svg';
 
 export default function List() {
@@ -17,21 +17,30 @@ export default function List() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        // read
-        onValue(ref(db, `/${auth.currentUser.uid}`), (snapshot) => {
-          setTodos([]);
-          const data = snapshot.val();
-          if (data !== null) {
-            Object.values(data).map((todo) => {
-              setTodos((oldArray) => [...oldArray, todo]);
-            });
-          }
-        });
+        readData();
       } else if (!user) {
         navigate('/');
       }
     });
-  }, []);
+  });
+
+  const readData = async () => {
+    const dbRef = ref(db);
+    await get(child(dbRef, `/${auth.currentUser.uid}`))
+      .then((snapshot) => {
+        const data = snapshot.val();
+        if (data !== null) {
+          setTodos([]);
+          Object.values(data).map((todo) => setTodos((oldArray) => [...oldArray, todo]));
+        } else {
+          setTodos([]);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const handleSignOut = async () => {
     await signOut(auth)
       .then(() => {
@@ -44,17 +53,28 @@ export default function List() {
 
   // add
   const writeToDatabase = () => {
-    const uidd = uid();
-    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+    const id = Date.now();
+    set(ref(db, `/${auth.currentUser.uid}/${id}`), {
+      id: id,
       todo: todo,
-      uidd: uidd,
+      complete: false,
     });
     setTodo('');
+    readData();
   };
 
   // delete
-  const handleDelete = (uid) => {
-    remove(ref(db, `/${auth.currentUser.uid}/${uid}`));
+  const handleDelete = (id) => {
+    console.log(id);
+    remove(ref(db, `/${auth.currentUser.uid}/${id}`));
+    readData();
+  };
+
+  const handleComplete = (id) => {
+    console.log(id);
+    update(ref(db, `/${auth.currentUser.uid}/${id}`), {
+      complete: true,
+    });
   };
 
   return (
@@ -68,14 +88,20 @@ export default function List() {
           onChange={(e) => setTodo(e.target.value)}
         />
         <button className='btn_add' onClick={writeToDatabase}>
-          <img src={AddIcon} />
+          <img src={AddIcon} alt='加入按鈕' />
         </button>
         <div className='todo_container'>
           {todos.map((todo, index) => (
-            <div className='todo' key={index}>
+            <div className={todo.complete ? 'todo strike' : 'todo'} key={index}>
               <div className='todo_txt'>{todo.todo}</div>
-              <button className='btn_delete' onClick={() => handleDelete(todo.uidd)}>
-                <img src={DeleteIcon} alt='刪除' />
+              <button
+                className={todo.complete ? 'btn_not_complete btn' : 'btn_complete btn'}
+                onClick={() => handleComplete(todo.id)}
+              >
+                <img src={CompleteIcon} alt='完成按鈕' />
+              </button>
+              <button className='btn_delete btn' onClick={() => handleDelete(todo.id)}>
+                <img src={DeleteIcon} alt='刪除按鈕' />
               </button>
             </div>
           ))}
